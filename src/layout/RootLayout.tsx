@@ -47,7 +47,7 @@ export const RootLayout: React.FC<RootLayoutProps> = ({ children, pageProps }) =
         as='main' 
         gridArea="main"
         bg={ bg }
-        w="100%"
+        
       > 
         { children }
       </GridItem>

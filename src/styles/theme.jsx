@@ -40,7 +40,7 @@ const globalStyles = {
       
       
       p:{
-          fontSize: ["xs", "md", "md", "lg", "lg"],
+          fontSize: ["xs", "lg", "lg", "lg", "lg"],
       },
 
       li:{
