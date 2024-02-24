@@ -9,6 +9,8 @@ const getPages= async (locale: string): Promise<PageCollection | undefined> => {
       items {
         title
         slug
+        iconUrl
+        description
       }
     }
 

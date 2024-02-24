@@ -9,6 +9,8 @@ const getPageBySlug= async (slug: string, locale: string): Promise<Page> => {
       items {
         title
         slug
+        description
+        iconUrl
       }
     }
 

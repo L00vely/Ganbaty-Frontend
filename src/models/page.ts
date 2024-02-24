@@ -1,15 +1,19 @@
 export interface PageContent {
-    content: any
+    children?: any;
 }
 
 export const defaultPage: Page = {
     title: '',
-    slug: ''
+    slug: '',
+    iconUrl: '',
+    description: ''
   };
 
 export interface Page {
     title: string;
-    slug: string
+    slug: string;
+    iconUrl: string;
+    description: string;
 }
 
   

@@ -5,6 +5,6 @@ const nextTranslate = require('next-translate-plugin')
 
 module.exports = nextTranslate({
   images: {
-    domains: ['images.ctfassets.net', '//images.ctfassets.net', 'downloads.ctfassets.net', 'iconos8.es' ]
+    domains: ['images.ctfassets.net', '//images.ctfassets.net', 'downloads.ctfassets.net', 'iconos8.es', 'img.icons8.com' ]
   }
 })

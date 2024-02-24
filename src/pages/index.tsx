@@ -1,27 +1,41 @@
 import Head from "next/head";
 import Image from "next/image";
 import { Inter } from "next/font/google";
-import { Box, Flex, Heading, Text, VStack } from "@chakra-ui/react";
+import { Box, Card, Flex, Grid, HStack, Heading, Text, VStack, useColorModeValue } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-import { useGetPageBySlug, useGetPages, useGetTools } from "@/hooks";
-import { getPageBySlug, getPageContent } from "@/contentful";
+import { useGetPageBySlug, useGetPages } from "@/hooks";
+import { getPageBySlug } from "@/contentful";
 import { Page } from "@/models";
-import { PageContentLayout } from "@/layout";
+import Section from "@/components/Section";
+import { ModifiableCard } from "@/components";
+import Link from "next/link";
 
 
 interface Props {
   locale: string;
+  slug: string;
   altLocale: string;
   locales: string[];
-  title: string;
-  content: any;
+  pageData: Page;
 }
+
 
 
 export default function Home(props: Props) {
 
-  const { locale, locales, altLocale, title, content } = props;
+  const { locale, locales, altLocale, pageData, slug } = props;
 
+  const { title, iconUrl, description } = pageData;
+
+  const { memorizedPages, isLoading } = useGetPages(locale);
+
+  const filteredPages = memorizedPages.filter(page => {
+    return page.slug !== slug || page.slug !== 'home';
+  });
+  
+  const bg = useColorModeValue("brand.white", "brand.primary");
+
+  const color = useColorModeValue("brand.primary", "brand.white");
 
   return (
     <>
@@ -31,64 +45,93 @@ export default function Home(props: Props) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
-      <PageContentLayout {...props} /> 
-
-
       
-    </>
+      <Section
+        justifyContent="center"
+        alignItems="center"
+        children={
+          <>
+            <Heading
+              as="h1"
+            >
+              Ganbaty
+            </Heading>
+            <Text
+              as="p"
+              w="40rem"
+            >
+              { description }
+            </Text>
+            
+            <VStack>
+              <Text as="h2">Herramientas</Text>
+              <Grid>
+                {
+                  filteredPages.map((page, index) => {
+
+
+
+                    return(
+                      <Link
+                        href={`/${page.slug}`} 
+                        locale={locale}
+                      >
+                        <ModifiableCard 
+                          key={ index }
+                          backGroundColor={ bg }
+                          padding=".4rem"
+                          w="100%" 
+                          h="fit-content"   
+                          children={
+                            <HStack>
+                              <Image 
+                                src={ page.iconUrl }
+                                alt={ page.title }
+                                width="50"
+                                height="50"
+                              />
+                              <Text 
+                                as="p" 
+                                color= { color }
+                              >
+                                { page.title} 
+                              </Text>
+                            </HStack>
+                          } 
+                        />
+                      </Link>
+                    )
+                  })
+                }
+              </Grid>
+
+            </VStack>
+          </>
+        } 
+      />
+    </>   
+
+ 
   );
 }
-
-
-// export async function getStaticPaths(){
-//   const posts = await getPostsSlugs();
-
-//   const pathES = posts.map(( item ) => ({
-//           params: {
-//               slug: [item.slug]
-//           },
-//           locale: 'es'
-//       })
-//   )
-
-//   const pathEN = posts.map(( item ) => ({
-//           params: {
-//               slug: [item.altSlug]
-//           },
-//           locale: 'en-US'
-//       })
-//   )
-      
-//   const allPaths = [ ...pathEN, ...pathES ];
-      
-//   return {
-//       paths: allPaths,
-//       fallback:true
-//   }
-// }   
 
 
 
 export async function getStaticProps(props: Props){
   const { locale, locales } = props;
 
-  const slug = locale === 'es' ? 'inicio' : 'home';
+  const slug = 'home';
 
-  const { title } = await getPageBySlug(slug,locale);
-
-  const content = await getPageContent(slug,locale);
-
-  console.log(content)
+  const pageData = await getPageBySlug(slug,locale);
 
   const [ altLocale ] = locales.filter(lang => lang !== locale);
 
   return {
     props: {
       ...props,
+      slug,
       altLocale,
-      title,
-      content
+      pageData: pageData 
     }
   }
 }

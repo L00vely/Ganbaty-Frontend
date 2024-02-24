@@ -5,7 +5,6 @@ interface ModifiableCardProps {
     children: React.ReactNode;
     w: string;
     h: string;
-    flexDir: string;
     backGroundColor?: string;
     justifyContent?: string;
     alignItems?: string;
@@ -25,7 +24,7 @@ export const ModifiableCard: React.FC<ModifiableCardProps> = (ModifiableCardProp
       gap="1rem"
       bg={ backGroundColor }
       borderRadius={ borderRadius } 
-      boxShadow="lg"
+      boxShadow="none"
       p={ padding }
     >
         { children }

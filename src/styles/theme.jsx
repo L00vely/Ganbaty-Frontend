@@ -1,5 +1,6 @@
 import { extendTheme } from "@chakra-ui/react";
 import "@fontsource/raleway"; 
+import "@fontsource/nunito"
 
 const colorConfig = {
   initialColorMode: 'dark',
@@ -24,7 +25,7 @@ const globalStyles = {
       },
 
       h1: {
-        fontSize: ["sm", "md", "lg", "3xl", "4xl"],
+        fontSize: ["sm", "md", "lg", "xl", "2xl"],
         fontWeight: "bold"
       },
 
@@ -41,6 +42,7 @@ const globalStyles = {
       
       p:{
           fontSize: ["xs", "lg", "lg", "lg", "lg"],
+          fontFamily: "nunito"
       },
 
       li:{

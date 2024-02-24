@@ -1,6 +1,6 @@
 // RootLayout.tsx
 import { Header, Footer } from '@/components';
-import {  Grid, GridItem, useBreakpointValue, useColorModeValue } from '@chakra-ui/react';
+import {  Grid, GridItem, VStack, useBreakpointValue, useColorModeValue } from '@chakra-ui/react';
 import React, { ReactNode } from 'react';
 // 
 interface RootLayoutProps {
@@ -43,14 +43,14 @@ export const RootLayout: React.FC<RootLayoutProps> = ({ children, pageProps }) =
     >
       <Header pageProps={ pageProps }/>
 
-      <GridItem 
+      <VStack 
         as='main' 
         gridArea="main"
         bg={ bg }
-        
+        p="1rem"
       > 
         { children }
-      </GridItem>
+      </VStack>
 
       <Footer />
     </Grid>
